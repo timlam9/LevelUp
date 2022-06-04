@@ -1,15 +1,17 @@
 // Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import composables.MainFAB
 import navigation.Navigation
 import navigation.Screen
 
@@ -33,7 +35,7 @@ fun main() = application {
 fun App() {
     var colors by remember { mutableStateOf(colors()) }
     var surfaceColor by remember { mutableStateOf(getSurfaceColor()) }
-    var screenState by remember { mutableStateOf<Screen>(Screen.Home) }
+    var screenState by rememberSaveable { mutableStateOf<Screen>(Screen.Home) }
 
     onIsInDarkModeChanged = { _, _ ->
         colors = colors()
@@ -41,24 +43,20 @@ fun App() {
     }
 
     MaterialTheme(colors = colors) {
-        Surface(color = surfaceColor) {
-            Scaffold(
-                modifier = Modifier.fillMaxSize(),
-                floatingActionButton = {
-                    FloatingActionButton(
-                        backgroundColor = Blue,
-                        onClick = {}
-                    ) {
-                        Icon(Icons.Filled.Add, "FAB")
-                    }
+        Scaffold(
+            backgroundColor = surfaceColor,
+            modifier = Modifier.fillMaxSize(),
+            floatingActionButton = {
+                if(screenState == Screen.Home) {
+                    MainFAB { }
                 }
-            ) {
-                Navigation(
-                    screenState = screenState,
-                    onHomeClicked = { screenState = Screen.Home },
-                    onChartsClicked = { screenState = Screen.Charts }
-                )
             }
+        ) {
+            Navigation(
+                screenState = screenState,
+                onHomeClicked = { screenState = Screen.Home },
+                onChartsClicked = { screenState = Screen.Charts }
+            )
         }
     }
 }

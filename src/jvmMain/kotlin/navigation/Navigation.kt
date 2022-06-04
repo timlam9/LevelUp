@@ -1,8 +1,6 @@
 package navigation
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -24,6 +22,7 @@ fun Navigation(
             onHomeClicked = onHomeClicked,
             onChartsClicked = onChartsClicked
         )
+        Spacer(modifier = Modifier.height(APP_PADDING))
         when (screenState) {
             is Screen.Home -> HomeScreen()
             is Screen.Charts -> ChartsScreen()

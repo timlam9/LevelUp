@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -36,6 +37,7 @@ fun ExpandableCard(
     descriptionFontWeight: FontWeight = FontWeight.Normal,
     descriptionMaxLines: Int = 6,
     shape: Shape = CutCornerShape(20.dp),
+    color: Color = MaterialTheme.colors.background,
     padding: Dp = 12.dp
 ) {
     var expandedState by remember { mutableStateOf(false) }
@@ -53,7 +55,7 @@ fun ExpandableCard(
                 )
             ),
         shape = shape,
-        backgroundColor = MaterialTheme.colors.background,
+        backgroundColor = color,
         onClick = {
             expandedState = !expandedState
         }

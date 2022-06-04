@@ -1,5 +1,6 @@
 package composables
 
+import Green
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -36,7 +37,8 @@ fun NoteList(
         items(items = notes) {
             ExpandableCard(
                 title = it.title,
-                description = it.description
+                description = it.description,
+                color = if (it.completed) Green else MaterialTheme.colors.background
             )
             Spacer(modifier = Modifier.height(10.dp))
         }
