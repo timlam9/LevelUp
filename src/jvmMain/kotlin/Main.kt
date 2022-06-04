@@ -1,5 +1,4 @@
 // Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
@@ -47,15 +46,19 @@ fun App() {
             backgroundColor = surfaceColor,
             modifier = Modifier.fillMaxSize(),
             floatingActionButton = {
-                if(screenState == Screen.Home) {
-                    MainFAB { }
+                if (screenState == Screen.Home) {
+                    MainFAB {
+                        screenState = Screen.AddNote
+                    }
                 }
             }
         ) {
             Navigation(
                 screenState = screenState,
                 onHomeClicked = { screenState = Screen.Home },
-                onChartsClicked = { screenState = Screen.Charts }
+                onChartsClicked = { screenState = Screen.Charts },
+                onCancelClicked = { screenState = Screen.Home },
+                onAddClicked = {}
             )
         }
     }

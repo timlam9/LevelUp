@@ -11,7 +11,9 @@ private val APP_PADDING = 20.dp
 fun Navigation(
     screenState: Screen,
     onHomeClicked: () -> Unit,
-    onChartsClicked: () -> Unit
+    onChartsClicked: () -> Unit,
+    onCancelClicked: () -> Unit,
+    onAddClicked: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -26,6 +28,10 @@ fun Navigation(
         when (screenState) {
             is Screen.Home -> HomeScreen()
             is Screen.Charts -> ChartsScreen()
+            is Screen.AddNote -> AddNoteScreen(
+                onCancelClicked = onCancelClicked,
+                onAddClicked = onAddClicked
+            )
         }
     }
 }
