@@ -1,22 +1,27 @@
 // Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import composables.NoteList
-import data.noteList
+import navigation.Navigation
+import navigation.Screen
 
 private const val APP_TITLE = "Level Up"
 fun main() = application {
     getDarkMode()
     Window(
         onCloseRequest = ::exitApplication,
-        state = WindowState(width = 800.dp, height = 600.dp),
+        state = WindowState(
+            width = 1800.dp,
+            height = 1200.dp
+        ),
         title = APP_TITLE
     ) {
         App()
@@ -28,6 +33,7 @@ fun main() = application {
 fun App() {
     var colors by remember { mutableStateOf(colors()) }
     var surfaceColor by remember { mutableStateOf(getSurfaceColor()) }
+    var screenState by remember { mutableStateOf<Screen>(Screen.Home) }
 
     onIsInDarkModeChanged = { _, _ ->
         colors = colors()
@@ -36,24 +42,26 @@ fun App() {
 
     MaterialTheme(colors = colors) {
         Surface(color = surfaceColor) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(20.dp)
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                floatingActionButton = {
+                    FloatingActionButton(
+                        backgroundColor = Blue,
+                        onClick = {}
+                    ) {
+                        Icon(Icons.Filled.Add, "FAB")
+                    }
+                }
             ) {
-                NoteList(notes = noteList)
+                Navigation(
+                    screenState = screenState,
+                    onHomeClicked = { screenState = Screen.Home },
+                    onChartsClicked = { screenState = Screen.Charts }
+                )
             }
         }
     }
 }
 
 @Stable
-private fun getSurfaceColor() = if (isInDarkMode) {
-    Black
-} else {
-    LightGray
-}
-
-
-
-
+private fun getSurfaceColor() = if (isInDarkMode) Black else LightGray

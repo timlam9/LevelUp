@@ -40,5 +40,8 @@ fun NoteList(
             )
             Spacer(modifier = Modifier.height(10.dp))
         }
+        item {
+            Spacer(modifier = Modifier.height(100.dp))
+        }
     }
 }

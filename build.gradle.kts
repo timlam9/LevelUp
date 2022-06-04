@@ -28,6 +28,7 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation("com.github.tkuenneth:nativeparameterstoreaccess:0.1.0")
+                implementation ("androidx.navigation:navigation-compose:2.4.0")
             }
         }
         val jvmTest by getting
