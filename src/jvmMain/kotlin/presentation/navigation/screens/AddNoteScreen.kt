@@ -1,4 +1,4 @@
-package navigation
+package presentation.navigation
 
 import Blue
 import EMPTY
@@ -9,9 +9,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import composables.DefaultButton
-import composables.NoteTextField
-import composables.OutlinedButton
+import presentation.ui.composables.DefaultButton
+import presentation.ui.composables.NoteTextField
+import presentation.ui.composables.OutlinedButton
 
 @Composable
 fun AddNoteScreen(onCancelClicked: () -> Unit, onAddClicked: () -> Unit) {

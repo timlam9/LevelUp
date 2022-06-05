@@ -1,4 +1,4 @@
-package composables
+package presentation.ui.composables
 
 import Blue
 import EMPTY

@@ -1,4 +1,4 @@
-package navigation
+package presentation.navigation
 
 import Green
 import Red
@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import composables.ProgressChart
+import presentation.ui.composables.ProgressChart
 
 @Composable
 fun ChartsScreen() {
@@ -37,6 +37,29 @@ fun ChartsScreen() {
                     text = "200.dp",
                     color = Red,
                     fontSize = 24.sp
+                )
+            }
+        }
+        Spacer(modifier = Modifier.size(30.dp))
+        Box(contentAlignment = Alignment.Center) {
+            ProgressChart(
+                total = 30,
+                completed = 10,
+                size = 120.dp
+            )
+            Column(
+                modifier = Modifier.align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "10/30",
+                    color = Green,
+                    fontSize = 20.sp
+                )
+                Text(
+                    text = "120.dp",
+                    color = Red,
+                    fontSize = 20.sp
                 )
             }
         }

@@ -1,4 +1,4 @@
-package navigation
+package presentation.navigation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import composables.IconButton
+import presentation.ui.composables.IconButton
 
 @Composable
 fun TabBar(onHomeClicked: () -> Unit, onChartsClicked: () -> Unit) {

@@ -1,4 +1,4 @@
-package composables
+package presentation.ui.composables
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size

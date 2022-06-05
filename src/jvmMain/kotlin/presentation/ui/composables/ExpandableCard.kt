@@ -1,4 +1,4 @@
-package composables
+package presentation.ui.composables
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing

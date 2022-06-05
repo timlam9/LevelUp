@@ -1,4 +1,4 @@
-package navigation
+package presentation.navigation
 
 sealed class Screen {
     object Home : Screen()

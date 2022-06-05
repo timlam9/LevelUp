@@ -1,4 +1,4 @@
-package composables
+package presentation.ui.composables
 
 import Green
 import androidx.compose.foundation.layout.Spacer
@@ -14,7 +14,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import model.Note
+import presentation.ui.model.Note
 
 @Composable
 fun NoteList(
@@ -37,7 +37,7 @@ fun NoteList(
         items(items = notes) {
             ExpandableCard(
                 title = it.title,
-                description = it.description,
+                description = it.text,
                 color = if (it.completed) Green else MaterialTheme.colors.background
             )
             Spacer(modifier = Modifier.height(10.dp))

@@ -1,9 +1,10 @@
-package navigation
+package presentation.navigation
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import presentation.navigation.screens.HomeScreen
 
 private val APP_PADDING = 20.dp
 

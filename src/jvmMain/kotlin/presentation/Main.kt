@@ -10,9 +10,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import composables.MainFAB
-import navigation.Navigation
-import navigation.Screen
+import presentation.ui.composables.MainFAB
+import presentation.navigation.Navigation
+import presentation.navigation.Screen
 
 private const val APP_TITLE = "Level Up"
 fun main() = application {

@@ -1,7 +1,8 @@
-package model
+package presentation.ui.model
 
 data class Note(
+    val id: Int,
     val title: String,
-    val description: String,
+    val text: String,
     val completed: Boolean
 )
