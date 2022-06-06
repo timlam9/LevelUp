@@ -1,10 +1,10 @@
 package data.api
 
-import data.api.DefaultHttpClient
 import data.model.NoteRaw
 import io.ktor.client.*
 import io.ktor.client.features.*
 import io.ktor.client.request.*
+import java.net.ConnectException
 import java.nio.channels.UnresolvedAddressException
 
 class NotesApi(private val client: HttpClient = DefaultHttpClient.client) {
@@ -12,7 +12,8 @@ class NotesApi(private val client: HttpClient = DefaultHttpClient.client) {
     suspend fun getUserNotes(userID: String): List<NoteRaw> = try {
         client.get {
             url {
-                path("$userID/notes")
+                path(ROUTE_NOTES)
+                parameter(USER_ID, userID)
             }
         }
     } catch (ex: RedirectResponseException) {
@@ -26,6 +27,12 @@ class NotesApi(private val client: HttpClient = DefaultHttpClient.client) {
         emptyList()
     } catch (e: UnresolvedAddressException) {
         println("Parsing Error: ${e.message}")
+        emptyList()
+    } catch (e: Exception) {
+        println("Parsing Error 2: ${e.message}")
+        emptyList()
+    } catch (e: ConnectException) {
+        println("Connected Error: ${e.message}")
         emptyList()
     }
 
@@ -45,5 +52,12 @@ class NotesApi(private val client: HttpClient = DefaultHttpClient.client) {
     } catch (ex: ServerResponseException) {
         println("5xx Error: ${ex.response.status.description}")
         null
+    }
+
+    companion object {
+
+        private const val USER_ID = "user_id"
+        private const val ROUTE_NOTES = "notes"
+        private const val ROUTE_POST_NOTE = "postNote"
     }
 }

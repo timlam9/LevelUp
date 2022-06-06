@@ -13,7 +13,7 @@ import java.util.*
 
 object DefaultHttpClient {
 
-    private const val BASE_URL = "https://api.com"
+    private const val BASE_URL = "http://0.0.0.0:8080"
     private const val SECRET = "lamti.levelup"
     private const val BASIC = "Basic"
     private const val TIME_OUT = 60_000L
