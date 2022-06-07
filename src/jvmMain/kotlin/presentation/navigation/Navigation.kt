@@ -33,7 +33,7 @@ fun Navigation(
         Spacer(modifier = Modifier.height(APP_PADDING))
         when (screenState) {
             is Screen.Home -> HomeScreen(repository = repository)
-            is Screen.Charts -> ChartsScreen()
+            is Screen.Charts -> ChartsScreen(repository = repository)
             is Screen.AddNote -> AddNoteScreen(
                 onCancelClicked = onCancelClicked,
                 onAddClicked = onAddClicked
