@@ -12,6 +12,8 @@ class Repository(private val api: NotesApi = NotesApi(client = DefaultHttpClient
     suspend fun addUserNote(userID: String, note: Note): NoteRaw? = api.addUserNote(userID, note.toRaw())
 
     suspend fun updateNote(userID: String, note: Note): NoteRaw? = api.updateNote(userID, note.toRaw())
+
+    suspend fun deleteNote(userID: String, note: Note): Boolean = api.deleteNote(userID, note.toRaw())
 }
 
 

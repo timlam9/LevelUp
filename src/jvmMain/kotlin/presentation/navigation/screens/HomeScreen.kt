@@ -15,12 +15,21 @@ fun HomeScreen(repository: Repository) {
     LaunchedEffect(true) {
         notes = updateNotes(repository)
     }
-    NoteList(notes = notes) {
-        coroutineScope.launch {
-            repository.updateNote("user1", it.copy(completed = !it.completed))
-            notes = updateNotes(repository)
+    NoteList(
+        notes = notes,
+        onDeletedClicked = {
+            coroutineScope.launch {
+                repository.deleteNote("user1", it)
+                notes = updateNotes(repository)
+            }
+        },
+        onCompletedClicked = {
+            coroutineScope.launch {
+                repository.updateNote("user1", it.copy(completed = !it.completed))
+                notes = updateNotes(repository)
+            }
         }
-    }
+    )
 }
 
 private suspend fun updateNotes(repository: Repository) = repository.getUserNotes("user1")

@@ -21,7 +21,8 @@ fun NoteList(
     notes: List<Note>,
     modifier: Modifier = Modifier,
     title: String = "Notes",
-    onItemClicked: (note: Note) -> Unit
+    onDeletedClicked: (note: Note) -> Unit,
+    onCompletedClicked: (note: Note) -> Unit,
 ) {
     LazyColumn {
         item {
@@ -41,7 +42,8 @@ fun NoteList(
                 description = it.text,
                 color = if (it.completed) Green else MaterialTheme.colors.background,
                 completed = it.completed,
-                onCompletedClicked = { onItemClicked(it) }
+                onDeletedClicked = { onDeletedClicked(it) },
+                onCompletedClicked = { onCompletedClicked(it) },
             )
             Spacer(modifier = Modifier.height(10.dp))
         }

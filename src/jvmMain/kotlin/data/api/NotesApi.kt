@@ -74,6 +74,26 @@ class NotesApi(private val client: HttpClient = DefaultHttpClient.client) {
         null
     }
 
+    suspend fun deleteNote(userID: String, noteRaw: NoteRaw): Boolean = try {
+        client.delete<Boolean> {
+            url {
+                path(ROUTE_POST_NOTE)
+                body = noteRaw
+                parameter(USER_ID, userID)
+            }
+        }
+        true
+    } catch (ex: RedirectResponseException) {
+        println("3xx Error: ${ex.response.status.description}")
+        false
+    } catch (ex: ClientRequestException) {
+        println("4xx Error: ${ex.response.status.description}")
+        false
+    } catch (ex: ServerResponseException) {
+        println("5xx Error: ${ex.response.status.description}")
+        false
+    }
+
     companion object {
 
         private const val USER_ID = "user_id"

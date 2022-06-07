@@ -14,6 +14,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,7 +43,8 @@ fun ExpandableCard(
     color: Color = MaterialTheme.colors.background,
     padding: Dp = 12.dp,
     completed: Boolean,
-    onCompletedClicked: () -> Unit
+    onDeletedClicked: () -> Unit,
+    onCompletedClicked: () -> Unit,
 ) {
     var expandedState by remember { mutableStateOf(false) }
     val rotationState by animateFloatAsState(
@@ -82,19 +84,27 @@ fun ExpandableCard(
                     overflow = TextOverflow.Ellipsis
                 )
                 IconButton(
-                    modifier = Modifier
-                        .alpha(ContentAlpha.medium),
-                    onClick = { onCompletedClicked() }
+                    modifier = Modifier.alpha(ContentAlpha.medium),
+                    onClick = onDeletedClicked
                 ) {
-                    if(completed) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Delete"
+                    )
+                }
+                IconButton(
+                    modifier = Modifier.alpha(ContentAlpha.medium),
+                    onClick = onCompletedClicked
+                ) {
+                    if (completed) {
                         Icon(
                             imageVector = Icons.Default.Check,
-                            contentDescription = "Check Icon"
+                            contentDescription = "Check"
                         )
                     } else {
                         Icon(
                             imageVector = Icons.Default.Clear,
-                            contentDescription = "Check Icon"
+                            contentDescription = "Check"
                         )
                     }
                 }
