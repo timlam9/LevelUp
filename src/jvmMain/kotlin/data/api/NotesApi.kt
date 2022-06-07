@@ -39,8 +39,9 @@ class NotesApi(private val client: HttpClient = DefaultHttpClient.client) {
     suspend fun addUserNote(userID: String, noteRaw: NoteRaw): NoteRaw? = try {
         client.post<NoteRaw> {
             url {
-                path("$userID/postNote")
+                path(ROUTE_POST_NOTE)
                 body = noteRaw
+                parameter(USER_ID, userID)
             }
         }
     } catch (ex: RedirectResponseException) {

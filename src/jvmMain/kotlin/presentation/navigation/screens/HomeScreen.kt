@@ -7,7 +7,7 @@ import presentation.ui.composables.NoteList
 import presentation.ui.model.Note
 
 @Composable
-fun HomeScreen(repository: Repository = Repository()) {
+fun HomeScreen(repository: Repository) {
     var notes by remember { mutableStateOf(emptyList<Note>()) }
     LaunchedEffect(true) {
         notes = repository.getUserNotes("user1")

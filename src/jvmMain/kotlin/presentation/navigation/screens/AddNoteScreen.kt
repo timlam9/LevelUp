@@ -1,4 +1,4 @@
-package presentation.navigation
+package presentation.navigation.screens
 
 import Blue
 import EMPTY
@@ -12,9 +12,10 @@ import androidx.compose.ui.unit.dp
 import presentation.ui.composables.DefaultButton
 import presentation.ui.composables.NoteTextField
 import presentation.ui.composables.OutlinedButton
+import presentation.ui.model.Note
 
 @Composable
-fun AddNoteScreen(onCancelClicked: () -> Unit, onAddClicked: () -> Unit) {
+fun AddNoteScreen(onCancelClicked: () -> Unit, onAddClicked: (Note) -> Unit) {
     val noteTitle = rememberSaveable { mutableStateOf(EMPTY) }
     val noteInput = rememberSaveable { mutableStateOf(EMPTY) }
 
@@ -51,7 +52,16 @@ fun AddNoteScreen(onCancelClicked: () -> Unit, onAddClicked: () -> Unit) {
             DefaultButton(
                 text = "Add note",
                 color = Blue,
-                onclick = onAddClicked
+                onclick = {
+                    onAddClicked(
+                        Note(
+                            id = 0,
+                            title = noteTitle.value,
+                            text = noteInput.value,
+                            completed = false
+                        )
+                    )
+                }
             )
         }
     }

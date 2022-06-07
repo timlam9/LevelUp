@@ -1,4 +1,4 @@
-package presentation.navigation
+package presentation.navigation.screens
 
 import Green
 import Red

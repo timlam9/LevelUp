@@ -10,6 +10,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import data.repository.Repository
+import kotlinx.coroutines.launch
 import presentation.ui.composables.MainFAB
 import presentation.navigation.Navigation
 import presentation.navigation.Screen
@@ -31,10 +33,11 @@ fun main() = application {
 
 @Preview
 @Composable
-fun App() {
+fun App(repository: Repository = Repository()) {
     var colors by remember { mutableStateOf(colors()) }
     var surfaceColor by remember { mutableStateOf(getSurfaceColor()) }
     var screenState by rememberSaveable { mutableStateOf<Screen>(Screen.Home) }
+    val coroutineScope = rememberCoroutineScope()
 
     onIsInDarkModeChanged = { _, _ ->
         colors = colors()
@@ -55,10 +58,18 @@ fun App() {
         ) {
             Navigation(
                 screenState = screenState,
+                repository = repository,
                 onHomeClicked = { screenState = Screen.Home },
                 onChartsClicked = { screenState = Screen.Charts },
                 onCancelClicked = { screenState = Screen.Home },
-                onAddClicked = {}
+                onAddClicked = { note ->
+                    coroutineScope.launch {
+                        repository.addUserNote("user1", note).also { response ->
+                            if (response != null)
+                                screenState = Screen.Home
+                        }
+                    }
+                }
             )
         }
     }
