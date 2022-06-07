@@ -10,6 +10,8 @@ class Repository(private val api: NotesApi = NotesApi(client = DefaultHttpClient
     suspend fun getUserNotes(userID: String): List<NoteRaw> = api.getUserNotes(userID)
 
     suspend fun addUserNote(userID: String, note: Note): NoteRaw? = api.addUserNote(userID, note.toRaw())
+
+    suspend fun updateNote(userID: String, note: Note): NoteRaw? = api.updateNote(userID, note.toRaw())
 }
 
 

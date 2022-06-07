@@ -12,6 +12,8 @@ import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +40,9 @@ fun ExpandableCard(
     descriptionMaxLines: Int = 6,
     shape: Shape = CutCornerShape(20.dp),
     color: Color = MaterialTheme.colors.background,
-    padding: Dp = 12.dp
+    padding: Dp = 12.dp,
+    completed: Boolean,
+    onCompletedClicked: () -> Unit
 ) {
     var expandedState by remember { mutableStateOf(false) }
     val rotationState by animateFloatAsState(
@@ -79,7 +83,23 @@ fun ExpandableCard(
                 )
                 IconButton(
                     modifier = Modifier
-                        .weight(1f)
+                        .alpha(ContentAlpha.medium),
+                    onClick = { onCompletedClicked() }
+                ) {
+                    if(completed) {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = "Check Icon"
+                        )
+                    } else {
+                        Icon(
+                            imageVector = Icons.Default.Clear,
+                            contentDescription = "Check Icon"
+                        )
+                    }
+                }
+                IconButton(
+                    modifier = Modifier
                         .alpha(ContentAlpha.medium)
                         .rotate(rotationState),
                     onClick = {

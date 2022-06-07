@@ -55,6 +55,25 @@ class NotesApi(private val client: HttpClient = DefaultHttpClient.client) {
         null
     }
 
+    suspend fun updateNote(userID: String, noteRaw: NoteRaw): NoteRaw? = try {
+        client.put<NoteRaw> {
+            url {
+                path(ROUTE_POST_NOTE)
+                body = noteRaw
+                parameter(USER_ID, userID)
+            }
+        }
+    } catch (ex: RedirectResponseException) {
+        println("3xx Error: ${ex.response.status.description}")
+        null
+    } catch (ex: ClientRequestException) {
+        println("4xx Error: ${ex.response.status.description}")
+        null
+    } catch (ex: ServerResponseException) {
+        println("5xx Error: ${ex.response.status.description}")
+        null
+    }
+
     companion object {
 
         private const val USER_ID = "user_id"

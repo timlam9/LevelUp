@@ -20,7 +20,8 @@ import presentation.ui.model.Note
 fun NoteList(
     notes: List<Note>,
     modifier: Modifier = Modifier,
-    title: String = "Notes"
+    title: String = "Notes",
+    onItemClicked: (note: Note) -> Unit
 ) {
     LazyColumn {
         item {
@@ -38,7 +39,9 @@ fun NoteList(
             ExpandableCard(
                 title = it.title,
                 description = it.text,
-                color = if (it.completed) Green else MaterialTheme.colors.background
+                color = if (it.completed) Green else MaterialTheme.colors.background,
+                completed = it.completed,
+                onCompletedClicked = { onItemClicked(it) }
             )
             Spacer(modifier = Modifier.height(10.dp))
         }
