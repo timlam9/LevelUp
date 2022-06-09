@@ -1,5 +1,6 @@
 package presentation.ui.composables
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.LinearOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -84,30 +85,34 @@ fun ExpandableCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                if(showDetailsIcons) {
-                    IconButton(
-                        modifier = Modifier.alpha(ContentAlpha.medium),
-                        onClick = onDeletedClicked
+                AnimatedVisibility(showDetailsIcons) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Delete,
-                            contentDescription = "Delete"
-                        )
-                    }
-                    IconButton(
-                        modifier = Modifier.alpha(ContentAlpha.medium),
-                        onClick = onCompletedClicked
-                    ) {
-                        if (completed) {
+                        IconButton(
+                            modifier = Modifier.alpha(ContentAlpha.medium),
+                            onClick = onDeletedClicked
+                        ) {
                             Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = "Check"
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = "Delete"
                             )
-                        } else {
-                            Icon(
-                                imageVector = Icons.Default.Clear,
-                                contentDescription = "Check"
-                            )
+                        }
+                        IconButton(
+                            modifier = Modifier.alpha(ContentAlpha.medium),
+                            onClick = onCompletedClicked
+                        ) {
+                            if (completed) {
+                                Icon(
+                                    imageVector = Icons.Default.Check,
+                                    contentDescription = "Check"
+                                )
+                            } else {
+                                Icon(
+                                    imageVector = Icons.Default.Clear,
+                                    contentDescription = "Check"
+                                )
+                            }
                         }
                     }
                 }

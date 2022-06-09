@@ -19,7 +19,7 @@ import presentation.ui.composables.MainFAB
 
 private const val APP_TITLE = "Level Up"
 fun main() = application {
-    val windowState: WindowState = rememberWindowState(width = 1200.dp, height = 1200.dp)
+    val windowState: WindowState = rememberWindowState(width = 1200.dp, height = 800.dp)
 
     getDarkMode()
     Window(
