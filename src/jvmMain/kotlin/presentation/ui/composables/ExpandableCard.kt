@@ -35,6 +35,7 @@ fun ExpandableCard(
     title: String,
     titleFontSize: TextUnit = 30.sp,
     titleFontWeight: FontWeight = FontWeight.Bold,
+    showDetailsIcons: Boolean,
     description: String,
     descriptionFontSize: TextUnit = 22.sp,
     descriptionFontWeight: FontWeight = FontWeight.Normal,
@@ -83,29 +84,31 @@ fun ExpandableCard(
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                IconButton(
-                    modifier = Modifier.alpha(ContentAlpha.medium),
-                    onClick = onDeletedClicked
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete"
-                    )
-                }
-                IconButton(
-                    modifier = Modifier.alpha(ContentAlpha.medium),
-                    onClick = onCompletedClicked
-                ) {
-                    if (completed) {
+                if(showDetailsIcons) {
+                    IconButton(
+                        modifier = Modifier.alpha(ContentAlpha.medium),
+                        onClick = onDeletedClicked
+                    ) {
                         Icon(
-                            imageVector = Icons.Default.Check,
-                            contentDescription = "Check"
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "Delete"
                         )
-                    } else {
-                        Icon(
-                            imageVector = Icons.Default.Clear,
-                            contentDescription = "Check"
-                        )
+                    }
+                    IconButton(
+                        modifier = Modifier.alpha(ContentAlpha.medium),
+                        onClick = onCompletedClicked
+                    ) {
+                        if (completed) {
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = "Check"
+                            )
+                        } else {
+                            Icon(
+                                imageVector = Icons.Default.Clear,
+                                contentDescription = "Check"
+                            )
+                        }
                     }
                 }
                 IconButton(

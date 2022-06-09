@@ -18,8 +18,9 @@ import presentation.ui.model.Note
 
 @Composable
 fun NoteList(
-    notes: List<Note>,
     modifier: Modifier = Modifier,
+    notes: List<Note>,
+    showDetailsIcons: Boolean,
     title: String = "Notes",
     onDeletedClicked: (note: Note) -> Unit,
     onCompletedClicked: (note: Note) -> Unit,
@@ -40,11 +41,11 @@ fun NoteList(
             ExpandableCard(
                 title = it.title,
                 description = it.text,
+                showDetailsIcons = showDetailsIcons,
                 color = if (it.completed) Green else MaterialTheme.colors.background,
                 completed = it.completed,
                 onDeletedClicked = { onDeletedClicked(it) },
-                onCompletedClicked = { onCompletedClicked(it) },
-            )
+            ) { onCompletedClicked(it) }
             Spacer(modifier = Modifier.height(10.dp))
         }
         item {

@@ -10,30 +10,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 import data.repository.Repository
 import kotlinx.coroutines.launch
-import presentation.ui.composables.MainFAB
 import presentation.navigation.Navigation
 import presentation.navigation.Screen
+import presentation.ui.composables.MainFAB
 
 private const val APP_TITLE = "Level Up"
 fun main() = application {
+    val windowState: WindowState = rememberWindowState(width = 1200.dp, height = 1200.dp)
+
     getDarkMode()
     Window(
         onCloseRequest = ::exitApplication,
-        state = WindowState(
-            width = 1800.dp,
-            height = 1200.dp
-        ),
+        state = windowState,
         title = APP_TITLE
     ) {
-        App()
+        App(windowState = windowState)
     }
 }
 
 @Preview
 @Composable
-fun App(repository: Repository = Repository()) {
+fun App(repository: Repository = Repository(), windowState: WindowState) {
     var colors by remember { mutableStateOf(colors()) }
     var surfaceColor by remember { mutableStateOf(getSurfaceColor()) }
     var screenState by rememberSaveable { mutableStateOf<Screen>(Screen.Home) }
@@ -58,19 +58,19 @@ fun App(repository: Repository = Repository()) {
         ) {
             Navigation(
                 screenState = screenState,
+                windowState = windowState,
                 repository = repository,
                 onHomeClicked = { screenState = Screen.Home },
                 onChartsClicked = { screenState = Screen.Charts },
-                onCancelClicked = { screenState = Screen.Home },
-                onAddClicked = { note ->
-                    coroutineScope.launch {
-                        repository.addUserNote("user1", note).also { response ->
-                            if (response != null)
-                                screenState = Screen.Home
-                        }
+                onCancelClicked = { screenState = Screen.Home }
+            ) { note ->
+                coroutineScope.launch {
+                    repository.addUserNote("user1", note).also { response ->
+                        if (response != null)
+                            screenState = Screen.Home
                     }
                 }
-            )
+            }
         }
     }
 }
