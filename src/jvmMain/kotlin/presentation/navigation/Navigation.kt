@@ -3,6 +3,7 @@ package presentation.navigation
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowState
 import data.repository.Repository
@@ -18,10 +19,12 @@ fun Navigation(
     screenState: Screen,
     windowState: WindowState,
     repository: Repository,
+    keyboardActionCode: Int,
     onHomeClicked: () -> Unit,
     onChartsClicked: () -> Unit,
     onCancelClicked: () -> Unit,
     onAddClicked: (Note) -> Unit,
+    onUpdateClicked: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -34,7 +37,12 @@ fun Navigation(
         )
         Spacer(modifier = Modifier.height(APP_PADDING))
         when (screenState) {
-            is Screen.Home -> HomeScreen(repository = repository, windowState = windowState)
+            is Screen.Home -> HomeScreen(
+                repository = repository,
+                windowState = windowState,
+                keyboardActionCode = keyboardActionCode,
+                onUpdateClicked = onUpdateClicked,
+            )
             is Screen.Charts -> ChartsScreen(repository = repository)
             is Screen.AddNote -> AddNoteScreen(
                 onCancelClicked = onCancelClicked,

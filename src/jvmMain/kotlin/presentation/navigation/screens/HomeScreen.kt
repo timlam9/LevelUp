@@ -1,6 +1,7 @@
 package presentation.navigation.screens
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowState
 import data.model.NoteRaw.Companion.toNote
@@ -10,7 +11,12 @@ import presentation.ui.composables.NoteList
 import presentation.ui.model.Note
 
 @Composable
-fun HomeScreen(repository: Repository, windowState: WindowState) {
+fun HomeScreen(
+    repository: Repository,
+    windowState: WindowState,
+    keyboardActionCode: Int,
+    onUpdateClicked: () -> Unit
+) {
     var notes by remember { mutableStateOf(emptyList<Note>()) }
     val coroutineScope = rememberCoroutineScope()
     val showDetailsIcons = when {
@@ -24,21 +30,31 @@ fun HomeScreen(repository: Repository, windowState: WindowState) {
     NoteList(
         notes = notes,
         showDetailsIcons = showDetailsIcons,
+        keyboardActionCode = keyboardActionCode,
         onDeletedClicked = {
             coroutineScope.launch {
-                repository.deleteNote("user1", it)
+                repository.deleteNote(USER_1, it)
+                notes = updateNotes(repository)
+            }
+        },
+        onUpdateClicked = {
+            onUpdateClicked()
+            coroutineScope.launch {
+                repository.updateNote(USER_1, it)
                 notes = updateNotes(repository)
             }
         },
         onCompletedClicked = {
             coroutineScope.launch {
-                repository.updateNote("user1", it.copy(completed = !it.completed))
+                repository.updateNote(USER_1, it.copy(completed = !it.completed))
                 notes = updateNotes(repository)
             }
         }
     )
 }
 
-private suspend fun updateNotes(repository: Repository) = repository.getUserNotes("user1")
+private const val USER_1 = "user1"
+
+private suspend fun updateNotes(repository: Repository) = repository.getUserNotes(USER_1)
     .map { it.toNote() }
     .sortedBy { it.completed }
