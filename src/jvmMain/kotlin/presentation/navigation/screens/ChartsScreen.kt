@@ -41,7 +41,7 @@ fun ChartsScreen(repository: Repository) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "$completedNotesSize/$notesSize",
+                        text = "$completedNotesSize/$notesSize | ${(completedNotesSize * 100) / notesSize}%",
                         color = Green,
                         fontSize = 24.sp
                     )
