@@ -78,7 +78,7 @@ fun ProgressChart(
                     size = Size(size.toPx(), size.toPx())
                 )
                 drawArc(
-                    color = color2,
+                    color = if (total != completed) color2 else color1,
                     startAngle = startAngle2,
                     sweepAngle = sweepAngle2,
                     useCenter = false,
